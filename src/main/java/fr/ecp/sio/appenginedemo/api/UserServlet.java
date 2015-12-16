@@ -17,7 +17,7 @@ public class UserServlet extends JsonServlet {
     // A GET request should simply return the user
     @Override
     protected User doGet(HttpServletRequest req) throws ServletException, IOException, ApiException {
-        // TODO: Extract the id of the user from the last part of the path of the request
+        // DoneTODO: Extract the id of the user from the last part of the path of the request
 
         // TODO: Check if this id is syntactically correct
 
@@ -52,6 +52,16 @@ public class UserServlet extends JsonServlet {
         // TODO: Security checks
         // TODO: Delete the user, the messages, the relationships
         // A DELETE request shall not have a response body
+
+
+        //Deletion of a user by his id
+        //Getting id in users/{id}
+        long id = Long.parseLong( req.getPathInfo().substring(1) );
+
+        // Lookup in repository and delete the user
+        UsersRepository.deleteUser(id);
+
+
         return null;
     }
 
