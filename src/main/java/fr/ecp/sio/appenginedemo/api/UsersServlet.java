@@ -22,16 +22,14 @@ public class UsersServlet extends JsonServlet {
     @Override
     protected List<User> doGet(HttpServletRequest req) throws ServletException, IOException, ApiException {
         // TODO: define parameters to search/filter users by login, with limit, order...
+
+
         // TODO: define parameters to get the followings and the followers of a user given its id
 
 
-        return (List<User>) UsersRepository.getUsers();
+        //return UsersRepository.getUsers().users;
+        return UsersRepository.getUsers().users;
 
-
-
-        //After the downloading of the project, it does'nt compile showing the following message:
-        //[ERROR] /C:/Users/SIO.PC-de-Mehdi/Documents/GitHub/AppEngineExamen/src/main/java/fr/ecp/sio/appenginedemo/api/UsersServlet.java:[26,40] incompatible types: fr.ecp.sio.appenginedemo.data.UsersRepository.UsersList cannot be converted to java.util.List<fr.ecp.sio.appenginedemo.model.User>
-        //[INFO] 1 error
 
         //Problem cause is this line
         //return UsersRepository.getUsers();
@@ -49,7 +47,7 @@ public class UsersServlet extends JsonServlet {
             throw new ApiException(400, "invalidRequest", "Invalid JSON body");
         }
 
-        // Perform all the usul checkings
+        // Perform all the usual checkings
         if (!ValidationUtils.validateLogin(user.login)) {
             throw new ApiException(400, "invalidLogin", "Login did not match the specs");
         }

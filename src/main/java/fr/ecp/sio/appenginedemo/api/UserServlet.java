@@ -18,8 +18,16 @@ public class UserServlet extends JsonServlet {
     @Override
     protected User doGet(HttpServletRequest req) throws ServletException, IOException, ApiException {
         // TODO: Extract the id of the user from the last part of the path of the request
+
         // TODO: Check if this id is syntactically correct
-        long id = 0;
+
+        //long id = 0;
+
+        //we get the id using getPathInfo and removing the \ with substring(1)
+        //As it's a string, a parsing in Long is required
+        long id = Long.parseLong( req.getPathInfo().substring(1) );
+
+
         // Lookup in repository
         User user = UsersRepository.getUser(id);
         // TODO: Not found?

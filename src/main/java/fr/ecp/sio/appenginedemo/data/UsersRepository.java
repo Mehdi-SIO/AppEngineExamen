@@ -106,6 +106,8 @@ public class UsersRepository {
 
     }
 
+    //method which is supposed to set the followers of a user
+    //How to link it with /users/{id}/followed
     public static void setUserFollowed(long followerId, long followedId, boolean followed) {
 
     }
