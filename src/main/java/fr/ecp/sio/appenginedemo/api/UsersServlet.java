@@ -26,14 +26,16 @@ public class UsersServlet extends JsonServlet {
 
         // TODO: define parameters to get the followings and the followers of a user given its id
 
+       //Set the parameters limit and continuation Token
+        int limit = 10;
+        String continuationToken = "";
+
 
 
         return UsersRepository.getUsers(null, null).users;
 
 
-        //Problem cause is this line
-        //return UsersRepository.getUsers();
-        //Problem fixed by casting:  return (List<User>) UsersRepository.getUsers();
+
     }
 
     // A POST request can be used to create a user
