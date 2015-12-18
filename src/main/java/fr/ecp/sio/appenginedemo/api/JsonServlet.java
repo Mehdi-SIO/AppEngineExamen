@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.SignatureException;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -97,6 +98,8 @@ public class JsonServlet extends HttpServlet {
         // After the headers are written, we can go for the response body
         // We rely on the Gson library, giving it the object and a Writer opened on the response OutputStream
         GsonFactory.getGson().toJson(response, resp.getWriter());
+
+        Logger.getLogger(JsonServlet.class.getSimpleName()).info("Logging test");
     }
 
     // This method can be used by our sub-servlets to get the User sending the request

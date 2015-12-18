@@ -35,6 +35,8 @@ public class UserServlet extends JsonServlet {
         return user;
     }
 
+
+
     // A POST request could be used by a user to edit its own account
     // It could also handle relationship parameters like "followed=true"
     @Override

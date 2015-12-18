@@ -1,0 +1,24 @@
+package fr.ecp.sio.appenginedemo.api;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+
+/**
+ * Created by SIO on 17/12/2015.
+ */
+public class FollowersServlet extends JsonServlet {
+
+    // A GET request should simply return the user
+    @Override
+    protected String doGet(HttpServletRequest req) throws ServletException, IOException, ApiException {
+
+
+        String test = "La page des abonnéSSSSSS";
+
+
+        return test;
+    }
+
+
+}

@@ -47,21 +47,31 @@ public class UsersRepository {
                 .now();
     }
 
-    public static UsersList getUsers() {
-        return new UsersList(
+/**
+     * Get all the users from the datastore (usage???)
+     * @param limit The maximum number of items to retrieve, optional
+     * @param cursor Optional cursor to get the next items
+     *  @return All users
+      */
+
+    public static UsersList getUsers(Integer limit, String cursor) {
+            return new UsersList(
             ObjectifyService.ofy()
                 .load()
                 .type(User.class)
                 .list(),
             "dummyCursor"
-        );
+            );
     }
 
     public static long allocateNewId() {
         // Sometime we need to allocate an id before persisting, the library allows it
         return new ObjectifyFactory().allocateId(User.class).getId();
     }
-
+    /**
+          * Persist a user into the datastore
+          * @param user The user to save
+          */
     public static void saveUser(User user) {
         user.id = ObjectifyService.ofy()
                 .save()
@@ -70,6 +80,9 @@ public class UsersRepository {
                 .getId();
     }
 
+    /**
+     * @param id The id of the user to remove
+     */
     public static void deleteUser(long id) {
         ObjectifyService.ofy()
                 .delete()
@@ -78,38 +91,47 @@ public class UsersRepository {
                 .now();
     }
 
-    public static UsersList getUserFollowed(long id, int limit) {
-        return getUsers();
-    }
+    /**
+     * @param id The id of the user
+     * @param limit The maximum number of items to retrieve, optional
+     * @param cursor Optional cursor to get the next items
+     * @return A list of users with optionally a cursor
+     */
+    public static UsersList getUserFollowed(long id, Integer limit, String cursor) {
+        return getUsers(limit, cursor);}
 
-    public static UsersList getUserFollowed(String cursor, int limit) {
-        return getUsers();
-    }
+        /**
+         * @param id The id of the user
+         * @param limit The maximum number of items to retrieve, optional
+         * @param cursor Optional cursor to get the next items
+         * @return A list of users with optionally a cursor
+         */
+    public static UsersList  getUserFollowers(long id, Integer limit, String cursor) {
+        return getUsers(limit, cursor);}
 
-    public static UsersList getUserFollowers(long id) {
-        return getUsers();
-    }
+        /**
+         * A list of users, with optionally a cursor to get the next items
+         */
+        public static class UsersList {
 
-    public static UsersList getUserFollowers(String cursor, long id) {
-        return getUsers();
-    }
+            public final List<User> users;
+            public final String cursor;
 
-    public static class UsersList {
+            private UsersList(List<User> users, String cursor) {
+                this.users = users;
+                this.cursor = cursor;
 
-        public final List<User> users;
-        public final String cursor;
 
-        private UsersList(List<User> users, String cursor) {
-            this.users = users;
-            this.cursor = cursor;
         }
-
     }
 
-    //method which is supposed to set the followers of a user
-    //How to link it with /users/{id}/followed
+        /**
+         * @param followerId The id of the follower
+         * @param followedId The id of the followed
+         * @param followed true to follow, false to unfollow
+         */
     public static void setUserFollowed(long followerId, long followedId, boolean followed) {
-
+            // Not implemented yet
     }
 
 }

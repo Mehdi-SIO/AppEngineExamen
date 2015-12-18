@@ -39,6 +39,27 @@
     -->
 
     <servlet>
+        <servlet-name>followers</servlet-name>
+        <servlet-class>fr.ecp.sio.appenginedemo.api.FollowersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>followers</servlet-name>
+        <!-- This will match any URL path starting with "users/". The * wildcard can only be at the end and there is no way the restrict the pattern. -->
+        <url-pattern>/users/(\w+)/followers</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>followed</servlet-name>
+        <servlet-class>fr.ecp.sio.appenginedemo.api.FollowedServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>followed</servlet-name>
+        <!-- This will match any URL path starting with "users/". The * wildcard can only be at the end and there is no way the restrict the pattern. -->
+        <url-pattern>/users/(\w+)/followed</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>user</servlet-name>
         <servlet-class>fr.ecp.sio.appenginedemo.api.UserServlet</servlet-class>
     </servlet>

@@ -27,8 +27,8 @@ public class UsersServlet extends JsonServlet {
         // TODO: define parameters to get the followings and the followers of a user given its id
 
 
-        //return UsersRepository.getUsers().users;
-        return UsersRepository.getUsers().users;
+
+        return UsersRepository.getUsers(null, null).users;
 
 
         //Problem cause is this line
