@@ -16,6 +16,7 @@ public class FollowersServlet extends JsonServlet {
 
         String test = "La page des abonnéSSSSSS";
 
+        //I don't get how the url is redirected by urlwrite. This servlet is never called.
 
         return test;
     }

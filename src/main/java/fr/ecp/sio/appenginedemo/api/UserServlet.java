@@ -21,15 +21,23 @@ public class UserServlet extends JsonServlet {
 
         // TODO: Check if this id is syntactically correct
 
-        //long id = 0;
+        long id = 0;
 
-        //we get the id using getPathInfo and removing the \ with substring(1)
-        //As it's a string, a parsing in Long is required
-        long id = Long.parseLong( req.getPathInfo().substring(1) );
-
+        //Allowing "me" keyword
+        if (req.getPathInfo().substring(1).equals("me") )
+            { User authenticatedUser = getAuthenticatedUser(req);
+                id = authenticatedUser.id;}
+        else
+            //we get the id using getPathInfo and removing the \ with substring(1)
+            //As it's a string, a parsing in Long is required
+            id = Long.parseLong( req.getPathInfo().substring(1) );
 
         // Lookup in repository
         User user = UsersRepository.getUser(id);
+
+
+
+
         // TODO: Not found?
         // TODO: Add some mechanism to hide private info about a user (email) except if he is the caller
         return user;
@@ -42,10 +50,33 @@ public class UserServlet extends JsonServlet {
     @Override
     protected User doPost(HttpServletRequest req) throws ServletException, IOException, ApiException {
         // TODO: Get the user as below
+
+        //Get the user authenticated with the token
+        User authenticatedUser = getAuthenticatedUser(req);
+
+        //id of the user to follow
+       Long  idOfFollowed = Long.parseLong(req.getPathInfo().substring(1));
+
+
+
+
+        if (idOfFollowed != authenticatedUser.id)
+        // You cannot follow/unfollow yourself
+        {
+            Boolean followed = Boolean.parseBoolean(req.getParameter("followed"));
+
+            if (followed == true)
+            UsersRepository.setUserFollowed(authenticatedUser.id, idOfFollowed, followed);
+        }
+
         // TODO: Apply some changes on the user (after checking for the connected user)
         // TODO: Handle special parameters like "followed=true" to create or destroy relationships
         // TODO: Return the modified user
-        return null;
+
+        return authenticatedUser;
+
+
+
     }
 
     // A user can DELETE its own account
@@ -60,8 +91,14 @@ public class UserServlet extends JsonServlet {
         //Getting id in users/{id}
         long id = Long.parseLong( req.getPathInfo().substring(1) );
 
-        // Lookup in repository and delete the user
-        UsersRepository.deleteUser(id);
+        if (id == getAuthenticatedUser(req).id)
+        {
+            // Lookup in repository and delete the user
+            UsersRepository.deleteUser(id);
+        }
+
+        //It works ! If you try to delete another id it returns null but you still can get
+        //the user. If it's the same id. Then a GET returns null.
 
 
         return null;

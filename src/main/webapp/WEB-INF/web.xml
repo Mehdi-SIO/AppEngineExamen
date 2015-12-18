@@ -38,6 +38,7 @@
         Generic mappings (with "/*") must go before their exact-matching counterpart.
     -->
 
+    //Adding a servlet for followers, but it doesn't seem to match the URLs
     <servlet>
         <servlet-name>followers</servlet-name>
         <servlet-class>fr.ecp.sio.appenginedemo.api.FollowersServlet</servlet-class>
@@ -45,9 +46,10 @@
     <servlet-mapping>
         <servlet-name>followers</servlet-name>
         <!-- This will match any URL path starting with "users/". The * wildcard can only be at the end and there is no way the restrict the pattern. -->
-        <url-pattern>/users/(\w+)/followers</url-pattern>
+        <url-pattern>users/15/following</url-pattern>
     </servlet-mapping>
 
+    //Adding a servlet for followed, but it doesn't seem to match the URLs
     <servlet>
         <servlet-name>followed</servlet-name>
         <servlet-class>fr.ecp.sio.appenginedemo.api.FollowedServlet</servlet-class>
@@ -55,7 +57,7 @@
     <servlet-mapping>
         <servlet-name>followed</servlet-name>
         <!-- This will match any URL path starting with "users/". The * wildcard can only be at the end and there is no way the restrict the pattern. -->
-        <url-pattern>/users/(\w+)/followed</url-pattern>
+        <url-pattern>users/15/followed</url-pattern>
     </servlet-mapping>
 
 
